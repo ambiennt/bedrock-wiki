@@ -39,7 +39,7 @@ We can also cancel the rotational value of the entity, allowing the entity to di
 
 If you need more information about triggering animations from entity death, [see this document on death effects](/tutorials/death-effects).
 
-Rotation needs to be applied to a bone parent to all other bones, with a pivot at [0,0,0], and the animation should only start when `!query.is_alive`.
+Rotation needs to be applied to a bone parent to all other bones, with a pivot at [0,0,0], and the animation should only start when `!query.is_alive` and have a length of 1.1 seconds.
 
 Animation:
 ```json
@@ -54,33 +54,17 @@ Before starting you must have the basics of render controller so check out the  
 
 To remove the damage overlay color  of any entity you want when it gets damage  we will use `is_hurt_color` and to remove damage overlay color when an entity gets damage due to lava and fire we will use `on_fire _color`.
 First you need to make the rgba values to 0
-Here's the example on removing the damage overlay color.
+Here's the example on removing the damage and fire overlay color.
 ```json
 {
     "format_version": "1.8.0",
     "render_controllers": {
-        "controller.render.kbg": {
+        "controller.render.sample": {
             "geometry": "Geometry.default",
-            "materials": [
-                {
-                    "*": "Material.default"
-                }
-            ],
-            "textures": [
-                "Texture.default"
-            ],
-            "is_hurt_color": {
-                "r": "0",
-                "g": "0",
-                "b": "0",
-                "a": "0"
-            },
-            "on_fire_color": {
-                "r": "0",
-                "g": "0",
-                "b": "0",
-                "a": "0"
-            }
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Texture.default" ],
+            "is_hurt_color": {},
+            "on_fire_color": {}
         }
     }
 }
@@ -180,9 +164,6 @@ Heres an example "cart.json" file in the BP
       }
     },
     "events": {
-      "minecraft:entity_spawned": {
-        "remove": {}
-      },
       "beluga:despawn": {
         "add": {
             "component_groups": [
